@@ -1,0 +1,18 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install pytest
+    - pytest
+
+deploy:
+  stage: deploy
+  script:
+    - ssh user@your-server-ip "cd /path/to/project && git pull && systemctl restart mortgage.service"
+  only:
+    - main
